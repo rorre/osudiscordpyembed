@@ -40,7 +40,7 @@ async def beatmapset(beatmapset, color=default_embed_color):
         return None
 
 
-async def user(user, color=default_embed_color):
+async def user(user, color=default_embed_color, custom_footer=None):
     if user:
         body = ""
 
@@ -67,6 +67,9 @@ async def user(user, color=default_embed_color):
         )
         embed.set_thumbnail(
             url=user.avatar
+        )
+        embed.set_footer(
+            text=custom_footer
         )
         return embed
     else:
