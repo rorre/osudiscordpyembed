@@ -40,7 +40,7 @@ async def beatmapset(beatmapset, color=default_embed_color):
         return None
 
 
-async def user(user, color=default_embed_color, custom_footer=None):
+async def user(user, color=default_embed_color, custom_footer=""):
     if user:
         body = ""
 
