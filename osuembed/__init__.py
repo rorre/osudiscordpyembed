@@ -3,37 +3,36 @@ import pycountry
 
 
 default_embed_color = 0xffffff
-default_footer_icon = 'https://raw.githubusercontent.com/ppy/osu-resources/51f2b9b37f38cd349a3dd728a78f8fffcb3a54f5/osu.Game.Resources/Textures/Menu/logo.png'
 
 
-async def beatmapset(beatmapset, color=default_embed_color):
-    if beatmapset:
-        body = "%s\n\n" % (beatmapset.artist)
+async def beatmapset(mapset, color=default_embed_color):
+    if mapset:
+        body = f"{mapset.artist}\n\n"
 
-        for beatmap in beatmapset.beatmaps:
+        for beatmap in mapset.beatmaps:
             try:
-                body += "%s ☆ %s [%s] \n" % (str(round(float(beatmap.difficultyrating), 2)), beatmap.version, beatmap.gamemode)
+                short_dec = str(round(float(beatmap.difficultyrating), 2))
+                body += f"{short_dec} ☆ {beatmap.version} [{beatmap.gamemode}] \n"
             except:
                 pass
         if len(body) > 2048:
-            body = "%s" % (beatmapset.artist)
+            body = mapset.artist
         embed = discord.Embed(
-            title=beatmapset.title,
-            url=beatmapset.url,
+            title=mapset.title,
+            url=mapset.url,
             description=body,
             color=int(color)
         )
         embed.set_author(
-            name=beatmapset.creator,
-            url="https://osu.ppy.sh/users/%s" % (beatmapset.creator_id),
-            icon_url="https://a.ppy.sh/%s" % (beatmapset.creator_id)
+            name=mapset.creator,
+            url=f"https://osu.ppy.sh/users/{mapset.creator_id}",
+            icon_url=f"https://a.ppy.sh/{mapset.creator_id}",
         )
         embed.set_thumbnail(
-            url=beatmapset.thumb
+            url=mapset.thumb
         )
         embed.set_footer(
-            text=beatmapset.source,
-            icon_url=default_footer_icon
+            text=mapset.source,
         )
         return embed
     else:
@@ -46,18 +45,16 @@ async def user(user, color=default_embed_color, custom_footer=""):
 
         if user.country:
             try:
-                country = pycountry.countries.get(
-                    alpha_2=user.country.upper())
-                country_flag_emote = ":flag_%s:" % (
-                    country.alpha_2.lower())
-                body += "%s %s\n" % (country_flag_emote, country.name)
+                country = pycountry.countries.get(alpha_2=user.country.upper())
+                country_flag_emote = f":flag_{country.alpha_2.lower()}:"
+                body += f"{country_flag_emote} {country.name}\n"
             except:
                 pass
 
         if user.pp:
-            body += "%spp (#%s)\n" % (user.pp, user.rank)
+            body += f"{user.pp}pp (#{user.rank})\n"
 
-        body += "Joined osu on: %s\n" % (user.join_date)
+        body += f"Joined osu on: {user.join_date}\n"
 
         embed = discord.Embed(
             title=user.username,
