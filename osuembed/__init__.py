@@ -7,7 +7,7 @@ default_embed_color = 0xffffff
 
 async def beatmapset(mapset, color=default_embed_color):
     if mapset:
-        body = f"{mapset.artist}\n\n"
+        body = f""
 
         for beatmap in mapset.beatmaps:
             try:
@@ -16,9 +16,9 @@ async def beatmapset(mapset, color=default_embed_color):
             except:
                 pass
         if len(body) > 2048:
-            body = mapset.artist
+            body = ""
         embed = discord.Embed(
-            title=mapset.title,
+            title=f"{mapset.artist} - {mapset.title}",
             url=mapset.url,
             description=body,
             color=int(color)
