@@ -1,14 +1,14 @@
 from distutils.core import setup
 
 setup(
-    name='osuembed',
-    packages=['osuembed'],
+    name='osuwebembed',
+    packages=['osuwebembed'],
     version='r20191124',
-    description='osuembed',
+    description='osuwebembed',
     author='Kyuunex',
     url='https://github.com/Kyuunex/osudiscordpyembed',
     download_url='https://github.com/Kyuunex/osudiscordpyembed/tarball/r20191124',
     keywords=['osu', 'discord'],
     classifiers=[],
-    requires=['pycountry', 'discord.py'],
+    requires=['discord.py'],
 )
