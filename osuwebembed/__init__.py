@@ -8,7 +8,8 @@ async def beatmapset(mapset, color=default_embed_color):
     if mapset:
         body = f""
 
-        for beatmap in mapset["beatmaps"]:
+        sorted_diffs = sorted(mapset["beatmaps"], key=lambda k: k["difficulty_rating"])
+        for beatmap in sorted_diffs:
             try:
                 short_dec = str(beatmap["difficulty_rating"])
                 body += f"{short_dec} ☆ {beatmap['version']} [{beatmap['mode']}] \n"
