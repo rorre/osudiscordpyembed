@@ -9,7 +9,7 @@ async def beatmapset(mapset, color=default_embed_color):
     if mapset:
         body = f""
 
-        for beatmap in mapset.beatmaps:
+        for beatmap in sorted(mapset.beatmaps, key=lambda x: x.difficulty_rating, reverse=False):
             try:
                 short_dec = str(round(float(beatmap.difficultyrating), 2))
                 body += f"{short_dec} ☆ {beatmap.version} [{beatmap.gamemode}] \n"
